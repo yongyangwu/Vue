@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<h3>#注册</h3>
+<div id="dr0101">
+    <span>1、下面的是一个全局的构造器</span>
+    <global-component></global-component>
+</div>
+<br />
+<div id="dr0102">
+    <span>2、下面的是一个全局的构造器</span>
+    <aa></aa>
+</div>
+
+<script>
+    //***************************************************************************
+    //全局注册
+    //1、创建一个组件构造器
+    var GlobalComponent = Vue.extend({
+        template: "<div>hello, this is a global component</div>"
+    });
+    //2、如果要全局使用，则使用Vue注册组件
+    Vue.component("aa", GlobalComponent);
+    //3、使用
+    var dr0101 = new Vue({
+        el: "#dr0101"
+    });
+    var dr0102 = new Vue({
+        el: "#dr0102"
+    });
+
+</script>
+
+</body>
+</html>

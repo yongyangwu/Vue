@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Two-way data-binding</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+
+<div id="app">
+
+</div>
+
+<script>
+    //实现一个Observer Observer 是一个数据监听器
+    function defineReactive(data,key,val) {
+        observer(val);//遍历所有子属性
+        Object.defineProperty(data,key,{
+            enumerable:true,
+            configurable:true,
+            get:function () {
+                return val;
+            },
+            set:function (newVal) {
+                val =newVal;
+                console.log("属性"+key +"已经被监听了，现在值为："+newVal.toString());
+            }
+        });
+    }
+    function observer() {
+        if(!data || typeof data !=="object"){
+            return
+        }
+        Object.keys(data).forEach(function (key) {
+            defineReactive(data,key,data[key])
+        })
+    }
+</script>
+
+</body>
+</html>

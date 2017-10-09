@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div id="app">
+
+</div>
+
+<script>
+    var data = { a:1};
+    //Vue的根实例启动
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!'
+        },
+        created:function(){
+            console.log('created',this.message)
+        },
+        mounted:function(){
+            console.log('mounted',this.message);
+//            console.log(vm.message);
+        }
+    });
+    console.log(1,vm.message);
+
+
+</script>
+</body>
+</html>

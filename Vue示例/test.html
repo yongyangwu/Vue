@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" value="1212">
+    <span>ddd</span>
+</div>
+
+
+<script>
+var book = {
+    name:"tom",
+    age:23,
+    family:{
+        father:"gary",
+        grandFather:{
+            name:"andy",
+            age:98
+        }
+    }
+};
+
+ function factorial(val){
+    observer(val);
+}
+
+function observer(data) {
+     if(!data || typeof data !== "object"){
+         return;
+     }
+    Object.keys(data).forEach(function (key) {
+        console.log(key);
+        factorial(data[key]);
+
+    })
+}
+    factorial(book)
+</script>
+</body>
+</html>
