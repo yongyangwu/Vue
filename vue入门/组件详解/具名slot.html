@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<section id="app">
+    <custom-component>
+        <p>分发的内容</p>
+        <p>更多分发的内容</p>
+    </custom-component>
+</section>
+
+<script>
+    Vue.component("custom-component", {
+        props: ['count'],
+        template: `
+          <div>
+          <slot>
+           <p>如果父组件没有插入内容 我将作为默认出现</p>
+          </slot>
+          </div>`,
+    });
+
+    new Vue({
+        el: "#app"
+    });
+
+
+
+
+
+</script>
+</body>
+</html>

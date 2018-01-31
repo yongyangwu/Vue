@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/axios.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+  <div id="app">
+      <!--<router-view></router-view>-->
+      <my-component></my-component>
+  </div>
+
+  <script>
+      Vue.component('my-component', {
+          template:"<div>qqqq</div>"
+      });
+      var vm = new Vue({
+          el:"#app",
+          data:{
+
+          },
+          methods:{
+
+          }
+      })
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<section id="app">
+    <custom-component :count="count"></custom-component>
+</section>
+
+<script>
+    Vue.component("custom-component", {
+        props: ['count'],
+        template: `
+          <div>
+            <h1>一个自定义模版</h1>
+            <input type="button"  @click="changeCount" value="按钮"/>
+            {{count}}
+          </div>`,
+        methods: {
+            changeCount() {
+                this.count++
+            }
+        }
+    });
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                count: 0
+            };
+        }
+    });
+
+
+
+
+
+</script>
+</body>
+</html>

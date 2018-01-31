@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-component   :message2 = msg></my-component>
+</div>
+
+<script>
+    Vue.component("my-component",{
+        props:["message2"],
+        template:'<div> {{message2}}</div>',
+        data:function () {
+            return {
+
+            }
+        }
+    });
+    var app = new Vue({
+        el: '#app',
+        data:{
+            msg:2
+        }
+    });
+
+
+
+</script>
+</body>
+</html>
