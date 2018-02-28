@@ -47,8 +47,8 @@ module.exports ={
         }
     },
     devServer:{
-        proxy: {
-            "/getnewslist": "http://127.0.0.1:8388"
-        }
+        // proxy: {
+        //     "/getnewslist": "http://127.0.0.1:8388"
+        // }
     }
 };
