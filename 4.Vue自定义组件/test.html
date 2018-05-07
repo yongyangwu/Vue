@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{value}}
+    <input-number v-model="value" ></input-number>
+</div>
+
+<script>
+
+    Vue.component('input-number',{
+        template:'<div class="input-number">' +
+        '<input type="text" :value="currentValue" @change="handleChange">' +
+        '</div>',
+        props:['value'],
+        data:function(){
+            return{
+                currentValue:this.value
+            }
+        },
+        watch:{
+            // currentValue:function(val){
+            //     this.$emit('input',val);
+            //     this.$emit('on-change',val);
+            // },
+            // value:function(val){
+            //
+            // }
+        },
+        methods:{
+            handleChange:function (event) {
+                var val = event.target.value.trim();
+                console.log(11,val);
+                this.currentValue = val;
+                // this.$emit('input',val)
+                this.$emit('on-change',val)
+
+            }
+        },
+        mounted:function(){
+
+        }
+    })
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value:4
+        },
+        mounted:function(){
+            // console.log(this.value)
+        }
+    })
+
+</script>
+
+</body>
+</html>

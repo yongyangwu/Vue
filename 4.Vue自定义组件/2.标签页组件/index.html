@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <tabs v-model="activeKey">
+        <pane label="标签一" name="1">
+            标签一的内容
+        </pane>
+        <pane label="标签二" name="2">
+            标签二的内容
+        </pane>
+        <pane label="标签三" name="3">
+            标签三的内容
+        </pane>
+    </tabs>
+
+</div>
+
+<script>
+    Vue.component('pane',{
+        name:'pane',
+        template:
+        '<div class="pane" v-show="show">' +
+           '<slot></slot>'+
+        '</div>',
+        props:{
+            name:{
+                type:String
+            },
+            label:{
+                type:String,
+                default:''
+            }
+        },
+        data:function () {
+            return{
+                show:true
+            }
+        },
+        methods:{
+            updateNav(){
+                this.$parent.updateNav()
+            }
+        },
+        watch:{
+            label(){
+                this.updateNav()
+            },
+            mounted(){
+                this.updateNav()
+            }
+        }
+    });
+    Vue.component('tabs',{
+        template:
+        '<div class="tabs">' +
+             '<div class="tabs-bar">' +
+                 '<div :class="tabCls(item)" v-for="(item,index) in navList" @click="handleChange(index)">' +
+                 ' {{ item.label }}' +
+                 '</div>' +
+             '</div>' +
+             '<div class="tabs-content">' +
+                  '<slot></slot>' +
+             '</div>' +
+        '</div>',
+        props:{
+            value:{
+                type:[String,Number]
+            }
+        },
+        data:function () {
+            return {
+                currentValue:this.value,
+                navList:[]
+            }
+        },
+        methods:{
+            tabCls:function (item) {
+                return[
+                    'tabs-tab',
+                   {
+                    'tabs-tab-active':item.name === this.currentValue
+                   }
+                ]
+            },
+            getTabs(){
+                return this.$children.filter(function (item) {
+                    return item.$options.name === 'pane';
+                })
+            },
+            updateNav(){
+                this.navList = [];
+                var _this = this;
+                this.getTabs().forEach(function (pane,index) {
+                    _this.navList.push({
+                        label:pane.label,
+                        name:pane.name || index
+                    });
+
+                })
+            }
+        }
+    });
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            activeKey:'1'
+        }
+    })
+
+</script>
+
+</body>
+</html>

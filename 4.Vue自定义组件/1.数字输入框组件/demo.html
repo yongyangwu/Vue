@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{ value}}
+    <input-number v-model="value" :max="10" :min="0"></input-number>
+</div>
+
+<script>
+    function isValueNumber(value){
+        return((/(^-?[0-9]+\.{1}\d+$) | (^-?[1-9]*$)|(^-?0{1}$)/).test(value+''));
+    }
+    Vue.component('input-number',{
+        template:'<div class="input-number">' +
+        '<input type="text" :value="currentValue" @change="handleChange">' +
+        '<button @click="handleDown" :disbaled="currentValue<=min">-</button>' +
+        '<button @click="handleUp" :disbaled="currentValue>=max">+</button>' +
+        '</div>',
+        props:{
+            max:{
+                type:Number,
+                default:Infinity
+            },
+            min:{
+                type:Number,
+                default:-Infinity
+            },
+            value:{
+                type:Number,
+                default:3
+            }
+        },
+        data:function(){
+            return{
+                currentValue:this.value //从父组件拿到子组件的值
+            }
+
+        },
+        watch:{
+            currentValue:function(val){
+                console.log('first:'+val)
+                this.$emit('input',val);//
+                this.$emit('on-change',val);
+            },
+            value:function(val){
+                console.log("second:"+val)
+                this.updateValue(val);
+            }
+        },
+        methods:{
+            handleDown:function(){
+                if(this.currentValue<=this.min){
+                    return
+                }
+                this.currentValue -=1;
+            },
+            handleUp:function(){
+                if(this.currentValue>=this.max){
+                    return
+                }
+                this.currentValue +=1;
+            },
+            updateValue:function(val){
+                if(val>this.max){
+                    val= this.max;
+                }
+                if(val<this.min){
+                    val = this.min;
+                }
+                this.currentValue = val;
+            },
+            handleChange:function(event){
+                var val = event.target.value.trim();
+                console.log("third:"+val)
+                var max = this.max;
+                var min = this.min;
+                if(isValueNumber(val)){
+                   val = Number(val);
+                   this.currentValue = val;
+                   if(val>max){
+                       this.currentValue = max;
+                   }else if(val<min){
+                       this.currentValue = min
+                   }
+                }else{
+                    event.target.value = this.currentValue;
+                }
+            }
+        },
+        mounted:function(){
+            this.updateValue(this.value);
+        }
+    })
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value:5
+        },
+        mounted:function(){
+            // console.log(this.value)
+        }
+    })
+
+</script>
+
+</body>
+</html>

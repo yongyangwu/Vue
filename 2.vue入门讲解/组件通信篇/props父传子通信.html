@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div id="app">
+    <p>总数：{{total}}</p>
+    <my-component :message="total">
+
+    </my-component>
+
+
+</div>
+
+<script>
+    Vue.component('my-component',{
+        template:'<div>{{ message}}</div>',
+        props:['message'],
+        data:function () {
+            return {
+            }
+        },
+        methods:{
+
+        }
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            total: '来自父组件的数据'
+        },
+        methods:{
+
+        }
+    });
+    console.log(1,vm.$el);
+    console.log(vm.message);
+
+
+</script>
+</body>
+</html>

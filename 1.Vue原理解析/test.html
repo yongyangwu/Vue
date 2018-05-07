@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Two-way-data-binding</title>
+</head>
+<body>
+<div id="app" v-model="myvalue"><input type="text"><p>111</p>
+</div>
+
+
+<script>
+    // function Person(name){
+    //     console.log(this)
+    //     this.name = name;
+    //     console.log(this);
+    // }
+    // var person1 = new Person("bob");
+    // console.log(person1)
+
+    // function Vue (options) {
+    //     console.log(this===vm)
+    //     this.data = options.data;//这里的this 就是是实例化vm这个对象，这个时候把构造函数参数对象的data赋值给了vm的data对象
+    //     // var data = this.data;
+    //     // observe(data, this);//现在我们进行观察vm代理的所有对象属性的变化了
+    //     // var id = options.el;
+    //     // var dom = nodeToFragment(document.getElementById(id), this);
+    //     // // 编译完成后，将 dom 返回到 app 中
+    //     // document.getElementById(id).appendChild(dom);
+    // }
+    // var vm = new Vue({
+    //     el: 'app',
+    //     data: {
+    //         text: 'hello world'
+    //     }
+    // })
+
+    // var obj = {
+    //     name:'bob',
+    //     age:28
+    // };
+    // obj2 = {
+    //     1:'a',
+    //     100:'b',
+    //     2:'c'
+    // };
+    // console.log(Object.keys(obj).forEach(function (currentValue,index,arr) {
+    //     console.log(currentValue)
+    //     console.log(index)
+    //     console.log(arr)
+    // }));
+    // Object.keys(obj).forEach(function(key) {
+    //     console.log(key)
+    //     console.log(obj[key])
+    // })
+    // console.log(document.getElementById('app').firstChild)
+
+    var node = document.getElementById('app');
+    console.log(node.attributes[1].nodeValue)
+    var flag = document.createDocumentFragment();
+    var child;
+    while (child = node.firstChild) {
+        flag.appendChild(child); // 将子节点劫持到文档片段中
+        console.log(node.firstChild)
+    }
+
+
+</script>
+</body>
+</html>

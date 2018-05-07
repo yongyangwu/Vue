@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div id="app">
+    <child-component>
+       <template scope="props">
+           <p>来自父组件的内容</p>
+           <p>{{props.msg}}</p>
+       </template>
+    </child-component>
+
+</div>
+
+<script>
+   Vue.component("child-component",{
+       template:
+       '<div class="container">' +
+           '<slot msg="来自子组件的内容"></slot>'+
+       '</div>'
+   })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!'
+        },
+        created:function(){
+            console.log('created',this.message)
+        },
+        mounted:function(){
+            console.log('mounted',this.message);
+//            console.log(vm.message);
+        }
+    });
+
+
+</script>
+</body>
+</html>
