@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{ value}}
+    <input-number v-model="value" :max="10" :min="0"></input-number>
+</div>
+
+<script>
+    function isValueNumber(value){
+        return((/(^-?[0-9]+\.{1}\d+$) | (^-?[1-9]*$)|(^-?0{1}$)/).test(value+''));
+    }
+    Vue.component('input-number',{
+        template:'<div class="input-number">' +
+        '<input type="text" :value="value" @input="updateValue" @change="changeValue">' +
+        '<button @click="handleDown" :disbaled="value<=min">-</button>' +
+        '<button @click="handleUp" :disbaled="value>=max">+</button>' +
+        '</div>',
+        props:{
+            max:{
+                type:Number,
+                default:Infinity
+            },
+            min:{
+                type:Number,
+                default:-Infinity
+            },
+            value:{
+                type:Number,
+                default:3
+            }
+        },
+        data:function(){
+            return{
+
+            }
+
+        },
+        methods:{
+            handleDown:function(){
+                if(this.value<=this.min){
+                    return
+                }
+                this.value -=1;
+                this.$emit('input',this.value)
+            },
+            handleUp:function(){
+                if(this.value>=this.max){
+                    return
+                }
+                this.value +=1;
+                this.$emit('input',this.value)
+            },
+            updateValue:function (e) {
+                console.log("发生input事件了")
+                this.$emit('input',e.target.value)
+            },
+            changeValue:function () {
+                console.log("发生了change事件了")
+            }
+        },
+        mounted:function(){
+
+        }
+    })
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value:5
+        },
+        mounted:function(){
+            // console.log(this.value)
+        }
+    })
+
+</script>
+
+</body>
+</html>

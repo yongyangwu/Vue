@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="https://unpkg.com/vue"></script>-->
+    <script src="../../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>FullName: {{obj.a}}</p>
+    <p>FirstName: <input type="text" v-model="obj.a"></p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+           obj:{
+               a:123
+           }
+        },
+        watch: {
+            obj: {
+                handler(newName, oldName) {
+                   console.log('obj.a changed');
+                },
+                // 代表在wacth里声明了firstName这个方法之后立即先去执行handler方法
+                immediate: true
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div id="app">
+    <div @click="add">我是父组件数据:<button>{{ total }}</button></div>
+    <my-component :message="total" ref="child"></my-component>
+</div>
+
+<script>
+    Vue.component('my-component',{
+        template:'<div>我是子组件数据:<button>{{ num}}</button></div>',
+        props:['message'],
+        data:function () {
+            return {
+                num:this.message
+            }
+        },
+        methods:{
+
+        },
+        mounted:function () {
+           this.$on('increase',function (val) {
+               this.num = val;
+           })
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            total:1
+        },
+        methods:{
+             add:function () {
+                 this.total++;
+                 this.$refs.child.$emit('increase',this.total);
+             }
+        }
+    });
+
+
+</script>
+</body>
+</html>

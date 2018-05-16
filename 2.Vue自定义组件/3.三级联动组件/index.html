@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+    <style>
+        .s1{
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <vue-linkage v-model="linkageData"></vue-linkage>
+
+
+</div>
+
+<script>
+    Vue.component('vue-linkage',{
+        template:'<select class="s1">'+
+                '<option value ="volvo" v-for="">Volvo</option>' +
+            '</select>',
+        props:['linkageData'],
+        name:'vue-linkage',
+        data:function () {
+            return {
+
+            }
+        },
+        methods:{
+
+        }
+    });
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            linkageData:[{a:["a1","a2","a3"]},{b:["b1","b2","b3"]}]
+        }
+    })
+
+</script>
+
+</body>
+</html>

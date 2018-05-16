@@ -8,37 +8,30 @@
 <body>
 <div id="app">
     <p>总数：{{total}}</p>
-    <my-component :message="total">
-
-    </my-component>
-
-
+    <my-component v-model="total"></my-component>
 </div>
 
 <script>
     Vue.component('my-component',{
-        template:'<div>{{ message}}</div>',
-        props:['message'],
+        template:'<input :value="value" >',
+        props:['value'],
         data:function () {
             return {
+                counter:0
             }
         },
         methods:{
-
         }
     })
 
     var vm = new Vue({
         el: '#app',
         data: {
-            total: '来自父组件的数据'
+            total: 1
         },
         methods:{
-
         }
     });
-    console.log(1,vm.$el);
-    console.log(vm.message);
 
 
 </script>

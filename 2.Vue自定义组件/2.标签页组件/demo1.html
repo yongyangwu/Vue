@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .active{
+            color:red
+        }
+        .clearfix:after {
+            content: '.';
+            height: 0;
+            display: block;
+            clear: both;
+        }
+        ul{
+            overflow: visible;
+        }
+        li{
+            list-style: none;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #e4e7ed;
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+        .item_content{
+            height: 300px;
+            border: 1px solid pink;
+
+        }
+    </style>
+
+
+
+</head>
+<body>
+<div id="app">
+    <ul class="clearfix">
+        <li @click="toggle(index ,tab.view)" v-for="(tab,index) in tabs" :class="{active:active===index}">
+            {{tab.type}}
+        </li>
+    </ul>
+    <component :is="currentView"></component>
+
+</div>
+
+<script>
+    Vue.component('child1', {
+        template: "<div class='item_content'>{{data1}}</div>",
+        data(){
+            return{
+                data1:'this is child1'
+            }
+        }
+    })
+    Vue.component('child2', {
+        template: "<div class='item_content'>{{data2}}</div>",
+        data(){
+            return{
+                data2:'this is child2'
+            }
+        }
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            active: 0,
+            currentView: 'child1',
+            tabs: [
+                {
+                    type: '标签一',
+                    view: 'child1'
+                },
+                {
+                    type: '标签二',
+                    view: 'child2'
+                }
+            ]
+        },
+        methods: {
+            toggle(i, v){
+                this.active = i;
+                this.currentView = v;
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

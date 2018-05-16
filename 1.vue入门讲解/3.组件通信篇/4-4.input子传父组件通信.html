@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div id="app">
+    <p>总数：{{total}}</p>
+    <my-component @input="handleGetTotal"></my-component>
+</div>
+
+<script>
+    Vue.component('my-component',{
+        template:'<input  @input="updateValue">',
+        props:[''],
+        data:function () {
+            return {
+
+            }
+        },
+        methods:{
+            updateValue:function (e) {
+                var val = e.target.value;
+                this.$emit('input',val);
+
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            total: 1
+        },
+        methods:{
+            handleGetTotal:function (val) {
+                this.total = val;
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

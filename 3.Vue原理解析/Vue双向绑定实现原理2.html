@@ -6,28 +6,31 @@
 </head>
 <body>
 
-<div id="app">
-    <input type="text" v-model="text">
-    {{ text }}
-</div>
+<div id="app"><input type="text" v-model="message">{{message}}</div>
 
 <script>
     function observe (obj, vm) {
+        console.log(1)
         Object.keys(obj).forEach(function (key) {
+            console.log(2)
             defineReactive(vm, key, obj[key]);
         })//这段代码是监听所有的vm代理的data对象的属性变化
     }
     function defineReactive (obj, key, val){
         var dep = new Dep();
+        console.log(3);
         Object.defineProperty(obj, key, {
             get: function () {
+                console.log(4)
                 // 添加订阅者 watcher 到主题对象 Dep
                 if (Dep.target){
+                    console.log(6)
                     dep.addSub(Dep.target);
                 }
                 return val
             },
             set: function (newVal) {
+                console.log(5)
                 if (newVal === val) {
                     return
                 }
@@ -56,8 +59,11 @@
         // 节点类型为元素
         if (node.nodeType === 1) {
             var attr = node.attributes;
+            // console.log(node)
+            // console.log(attr)
             // 解析属性
             for (var i = 0; i < attr.length; i++) {
+                // console.log('attr[i].nodeValue:',attr[i].nodeValue);
                 if (attr[i].nodeName == 'v-model') {
                     var name = attr[i].nodeValue; // 获取 v-model 绑定的属性名
                     node.addEventListener('input', function (e) {
@@ -104,31 +110,36 @@
         }
     }
     function Dep () {
+        console.log(7)
         this.subs = [];
     }
     Dep.prototype = {
         addSub: function(sub) {
+            console.log(8)
             this.subs.push(sub);
         },
         notify: function() {
             this.subs.forEach(function(sub) {
+                console.log(9)
                 sub.update();
             });
         }
     };
     function Vue (options) {
-        this.data = options.data;//这里的this 就是是实例化vm这个对象，这个时候把构造函数参数对象的data赋值给了vm的data对象
+        this.data = options.data;//这里的this将会是要诞生的vm对象，但是此刻里面的this是不等于vm的
         var data = this.data;
-        observe(data, this);//这里的this 就是vm这个实例对象，该对象下面有一个data属性，属性值等于new Vue()构造现在我们进行观察vm代理的所有对象属性的变化了
+        observe(data, this);//这里我要进行观察将要诞生的vm对象里面的属性值的变化
+        console.log(10)
         var id = options.el;
         var dom = nodeToFragment(document.getElementById(id), this);
         // 编译完成后，将 dom 返回到 app 中
+        console.log(11)
         document.getElementById(id).appendChild(dom);
     }
     var vm = new Vue({
         el: 'app',
         data: {
-            text: 'hello world'
+            message: 'hello world'
         }
     })
 </script>

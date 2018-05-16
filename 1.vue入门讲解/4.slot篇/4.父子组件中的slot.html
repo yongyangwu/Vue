@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+        .tabs_bar{
+            height: 50px;
+            width: auto;
+            border: 1px solid red;
+            display: inline-block;
+        }
+        .tabs_name{
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            width: auto;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <tabs :nav-list="navList">
+        <pane></pane>
+    </tabs>
+</div>
+
+<script>
+    Vue.component('pane',{
+        template:'<div>标签一内容</div>'
+    })
+   Vue.component("tabs",{
+       template:'<div>'+
+           '<div class="tabs_bar"><div class="tabs_name" v-for="(item,index) in navList">{{ item.name}}</div></div>'+
+           '<div class="tabs_content">'+
+                '<slot></slot>'+
+           '</div>'+
+       '</div>',
+       props:['navList']
+   })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            navList: [{name:'标签一'},{name:'标签二'},{name:'标签三'}]
+        },
+        created:function(){
+            console.log('created',this.message)
+        },
+        mounted:function(){
+            console.log('mounted',this.message);
+//            console.log(vm.message);
+        }
+    });
+
+
+</script>
+</body>
+</html>

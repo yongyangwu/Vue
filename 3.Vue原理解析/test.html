@@ -5,7 +5,7 @@
     <title>Two-way-data-binding</title>
 </head>
 <body>
-<div id="app" v-model="myvalue"><input type="text"><p>111</p>
+<div id="app"><input type="text" id="username" v-model="message"><p>111</p>
 </div>
 
 
@@ -35,19 +35,17 @@
     //     }
     // })
 
-    // var obj = {
-    //     name:'bob',
-    //     age:28
-    // };
+    var obj = {
+        name:'bob',
+        age:28
+    };
     // obj2 = {
     //     1:'a',
     //     100:'b',
     //     2:'c'
     // };
-    // console.log(Object.keys(obj).forEach(function (currentValue,index,arr) {
-    //     console.log(currentValue)
-    //     console.log(index)
-    //     console.log(arr)
+    // console.log(Object.keys(obj).forEach(function (key) {
+    //     console.log(key)
     // }));
     // Object.keys(obj).forEach(function(key) {
     //     console.log(key)
@@ -55,14 +53,32 @@
     // })
     // console.log(document.getElementById('app').firstChild)
 
-    var node = document.getElementById('app');
-    console.log(node.attributes[1].nodeValue)
-    var flag = document.createDocumentFragment();
-    var child;
-    while (child = node.firstChild) {
-        flag.appendChild(child); // 将子节点劫持到文档片段中
-        console.log(node.firstChild)
-    }
+    // var node = document.getElementById('app');
+    // console.log(node.attributes[1].nodeValue)
+    // var flag = document.createDocumentFragment();
+    // var child;
+    // while (child = node.firstChild) {
+    //     flag.appendChild(child); // 将子节点劫持到文档片段中
+    //     console.log(node.firstChild)
+    // }
+
+    //
+
+    // Object.defineProperty(obj,"name",{
+    //     get:function () {
+    //         console.log("有人读取我的属性了")
+    //     },
+    //     set:function (v) {
+    //         console.log(v)
+    //         console.log("有人修改我的属性了")
+    //     }
+    // })
+    // console.log(obj.name)
+    // obj.name = "tom";
+
+    //
+    console.log(obj)
+
 
 
 </script>

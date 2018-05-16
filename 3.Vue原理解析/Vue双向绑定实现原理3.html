@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Two-way-data-binding</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<input type="text" v-model="text">-->
+    <!--{{ text }}-->
+</div>
+
+<script>
+    function observe (obj, vm) {
+        Object.keys(obj).forEach(function (key) {
+            defineReactive(vm, key, obj[key]);
+        })//这段代码是监听所有的vm代理的data对象的属性变化
+    }
+    function defineReactive (obj, key, val){
+        Object.defineProperty(obj, key, {
+            get: function () {
+                console.log("有人读取我的属性");
+                return val
+            },
+            set: function (newVal) {
+                console.log("有人修改我的属性");
+                if (newVal === val) {
+                    return
+                }
+                val = newVal;
+            }
+        });
+    }
+    function Vue (options) {
+        this.data = options.data;//这里的this将会是要诞生的vm对象，但是此刻里面的this是不等于vm的
+        var data = this.data;
+        observe(data, this);//这里我要进行观察将要诞生的vm对象里面的属性值的变化
+        // var id = options.el;
+        // var dom = nodeToFragment(document.getElementById(id), this);
+        // // 编译完成后，将 dom 返回到 app 中
+        // document.getElementById(id).appendChild(dom);
+    }
+    var vm = new Vue({
+        el: 'app',
+        data: {
+            text: 'hello world'
+        }
+    })
+</script>
+</body>
+</html>

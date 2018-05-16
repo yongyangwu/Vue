@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<!--方法一-->
+<div id="app">
+    <div>父组件数据：{{total}}<button @click="increase">+1</button></div>
+    <my-component v-model="total"></my-component>
+</div>
+
+
+<script>
+    // 方法一：
+    Vue.component('my-component',{
+        template:'<div>子组件数据：{{counter}}<button>+1</button></div>',
+        data:function () {
+            return {
+                counter:2
+            }
+        },
+        methods:{
+
+        }
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            total: 0
+        },
+        methods:{
+            increase:function () {
+                this.total++;
+            }
+        }
+    });
+
+
+
+
+</script>
+</body>
+</html>
