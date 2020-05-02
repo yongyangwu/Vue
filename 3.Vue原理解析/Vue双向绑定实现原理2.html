@@ -40,6 +40,22 @@
             }
         });
     }
+    function Dep () {
+        console.log(7)
+        this.subs = [];
+    }
+    Dep.prototype = {
+        addSub: function(sub) {
+            console.log(8)
+            this.subs.push(sub);
+        },
+        notify: function() {
+            this.subs.forEach(function(sub) {
+                console.log(9)
+                sub.update();
+            });
+        }
+    };
     function nodeToFragment (node, vm) {
         var flag = document.createDocumentFragment();
         var child;
@@ -70,7 +86,7 @@
                         // 给相应的 data 属性赋值，进而触发该属性的 set 方法
                         vm[name] = e.target.value;
                     });
-                    node.value = vm[name]; // 将 data 的值赋给该 node
+                    node.value = vm[name]; // 将 data 的值赋给该 node vm[name]将会触发get函数
                     node.removeAttribute('v-model');
                 }
             };
@@ -109,27 +125,11 @@
             this.value = this.vm[this.name]; // 触发相应属性的 get
         }
     }
-    function Dep () {
-        console.log(7)
-        this.subs = [];
-    }
-    Dep.prototype = {
-        addSub: function(sub) {
-            console.log(8)
-            this.subs.push(sub);
-        },
-        notify: function() {
-            this.subs.forEach(function(sub) {
-                console.log(9)
-                sub.update();
-            });
-        }
-    };
+
     function Vue (options) {
         this.data = options.data;//这里的this将会是要诞生的vm对象，但是此刻里面的this是不等于vm的
         var data = this.data;
-        observe(data, this);//这里我要进行观察将要诞生的vm对象里面的属性值的变化
-        console.log(10)
+        observe(data, this);//这里要进行观察将要诞生的vm对象里面的属性值的变化
         var id = options.el;
         var dom = nodeToFragment(document.getElementById(id), this);
         // 编译完成后，将 dom 返回到 app 中

@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="app">
-
+{{obj.name ? obj.name : '22'}}
 </div>
 
 <script>
@@ -18,18 +18,17 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue.js!'
+            message: 'Hello Vue.js!',
+            obj:{}
         },
         created:function(){
-            console.log('created',this.message)
+            // console.log('created',this.message)
         },
         mounted:function(){
-            console.log('mounted',this.message);
+            // console.log('mounted',this.message);
 //            console.log(vm.message);
         }
     });
-    console.log(1,vm.$el);
-    console.log(vm.message);
 
 
 </script>
